@@ -6,10 +6,9 @@ import model.Node;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
 import java.lang.Math;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
+
 
 public class Drawing extends JPanel {
     LinkedHashMap<Node, Coordinate> points = new LinkedHashMap<>();
@@ -28,12 +27,13 @@ public class Drawing extends JPanel {
             // drawing edges
             for (Node m : graph.getNeighbours(n)){
                 g2d.setColor(Color.BLUE);
-                g2d.drawLine(points.get(m).X + 5, points.get(m).Y + 5, points.get(n).X + 5, points.get(n).Y + 5);
-                g2d.drawString(String.valueOf(graph.getWeight(m, n)), (points.get(m).X + points.get(n).X)/2 + 20, (points.get(m).Y + points.get(n).Y)/2 + 20);
+                drawLine(n, m, g2d);
             }
         }
-
-
+    }
+    public void drawLine(Node n, Node m, Graphics2D g2d){
+        g2d.drawLine(points.get(m).X + 5, points.get(m).Y + 5, points.get(n).X + 5, points.get(n).Y + 5);
+        g2d.drawString(String.valueOf(graph.getWeight(m, n)), (points.get(m).X + points.get(n).X)/2 + 20, (points.get(m).Y + points.get(n).Y)/2 + 20);
     }
     public void update(Graph g){
         graph = g;

@@ -1,7 +1,7 @@
 package view;
 
 import javax.swing.*;
-import java.awt.*;
+
 
 public class MenuBar extends JMenuBar {
     private JMenuItem aPoint, aEdge, rPoint, rEdge;

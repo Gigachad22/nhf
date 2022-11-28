@@ -1,24 +1,25 @@
 package model;
 import java.io.*;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
 public class Graph implements Serializable {
-    private String name;
-    private LinkedHashMap<Node, HashMap<Node, Integer>> map;
 
-    public Graph(String n) {
-        map = new LinkedHashMap<>();
-        name = n;
+    protected LinkedHashMap<Node, LinkedHashMap<Node, Integer>> map = new LinkedHashMap<>();
+
+   protected void setMap(LinkedHashMap<Node, LinkedHashMap<Node, Integer>> map){
+       this.map = map;
+   }
+   public LinkedHashMap<Node, LinkedHashMap<Node, Integer>> getMap(){
+       return map;
     }
-    public String getName() {return name;}
+
     public Set<Node> getNodes(){
         return map.keySet();
     }
     public int sizeofPoints(){return map.keySet().size();}
     public void addPoint(Node p) {
-        map.put(p, new HashMap<>());
+        map.put(p, new LinkedHashMap<>());
     }
     public void addEdge(Node b, Node e, int weight) {
         if (!map.containsKey(b) || !map.containsKey(e))
@@ -50,6 +51,9 @@ public class Graph implements Serializable {
             }
         }
         return r;
+    }
+    public boolean isNeighbours(Node n, Node m){
+       return getNeighbours(n).contains(m);
     }
 }
 

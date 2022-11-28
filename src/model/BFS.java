@@ -5,7 +5,7 @@ public class BFS {
 
     // source: https://www.baeldung.com/java-graphs
     public Graph breadthFirstTraversal(Graph graph, Node root) {
-        Graph BFS = new Graph("BFS of: " + graph.getName());
+        Graph BFS = new Graph();
         Queue<Node> queue = new LinkedList<Node>();
         queue.add(root);
         BFS.addPoint(root);

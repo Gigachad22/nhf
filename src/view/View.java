@@ -1,8 +1,8 @@
 package view;
-import model.Graph;
 
 import javax.swing.*;
 import java.awt.*;
+
 
 public class View extends JFrame {
     private MenuBar menu;
@@ -16,13 +16,11 @@ public class View extends JFrame {
         menu =  new MenuBar();
         setJMenuBar(menu);
         setResizable(false);
-        dr = new Drawing();
-        add(dr, BorderLayout.CENTER);
         setVisible(true);
     }
 
-    public void printGraph(Graph g){
-        dr.update(g);
+    public void addDrawing(Drawing dr){
+        add(dr, BorderLayout.CENTER);
         dr.repaint();
         setVisible(true);
     }

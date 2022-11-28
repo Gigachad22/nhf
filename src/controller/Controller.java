@@ -1,8 +1,11 @@
 package controller;
 
 import model.BFS;
+import model.Dijkstra;
 import model.Graph;
 import model.Node;
+import view.DrawDijkstra;
+import view.Drawing;
 import view.View;
 
 import javax.swing.*;
@@ -11,16 +14,20 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 
 import java.io.*;
+import java.util.LinkedHashMap;
 
 
 public class Controller {
     private Graph g;
     private View v;
+    Drawing dr = new Drawing();
+
     public Controller(Graph gr, View view) {
         g = gr;
         v = view;
         init();
-        v.printGraph(g);
+        dr.update(g);
+        v.addDrawing(dr);
     }
     public void init() {
         addPointMenu();
@@ -33,6 +40,7 @@ public class Controller {
         K4Menu();
         K5Menu();
         K6Menu();
+        DijkstraMenu();
     }
     public void addPointMenu() {
         v.getMenu().getaddPoint().addActionListener(e -> {
@@ -54,7 +62,8 @@ public class Controller {
             b.addActionListener(j -> {
                 g.addPoint(new model.Node(txt.getText()));
                 d.dispose();
-                v.printGraph(g);
+                dr.update(g);
+                v.addDrawing(dr);
             });
         });
     }
@@ -88,14 +97,15 @@ public class Controller {
 
             main_panel.add(fourth_row);
             dialog.add(main_panel);
-            dialog.setSize(300, 200);
+            dialog.setSize(300, 175);
             dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
             button.addActionListener(j -> {
                 if (box1.getSelectedItem() != box2.getSelectedItem() && weight_in.getText().matches("[0-9]+")) {
                     g.addEdge((Node) box1.getSelectedItem(), (Node) box2.getSelectedItem(), Integer.parseInt(weight_in.getText()));
                     dialog.dispose();
-                    v.printGraph(g);
+                    dr.update(g);
+                    v.addDrawing(dr);
                 }
             });
         });
@@ -140,7 +150,8 @@ public class Controller {
                     throw new RuntimeException(ex);
                 }
                 d.dispose();
-                v.printGraph(g);
+                dr.update(g);
+                v.addDrawing(dr);
             });
 
         });
@@ -156,7 +167,8 @@ public class Controller {
             chooser.showDialog(v, "Load file");
             try {
                 GraphFromFile(chooser.getSelectedFile().getName());
-                v.printGraph(g);
+                dr.update(g);
+                v.addDrawing(dr);
                 v.setVisible(true);
             } catch (IOException | ClassNotFoundException ex) {
                 throw new RuntimeException(ex);
@@ -166,7 +178,7 @@ public class Controller {
     public void removePointMenu(){
         v.getMenu().getremovePoint().addActionListener(e -> {
             JDialog dialog = new JDialog();
-            dialog.setSize(new Dimension(300, 180));
+            dialog.setSize(new Dimension(300, 150));
             dialog.setLayout(new GridLayout(2, 1));
             dialog.add(new JLabel("Please select the point you want to remove"));
             JPanel panel = new JPanel();
@@ -181,14 +193,15 @@ public class Controller {
             button.addActionListener(j -> {
                 g.removePoint((Node)box.getSelectedItem());
                 dialog.dispose();
-                v.printGraph(g);
+                dr.update(g);
+                v.addDrawing(dr);
             });
         });
     }
     public void removeEdgeMenu(){
         v.getMenu().getremoveEdge().addActionListener(e -> {
             JDialog dialog = new JDialog();
-            dialog.setSize(new Dimension(300, 180));
+            dialog.setSize(new Dimension(300, 160));
             dialog.setLayout(new GridLayout(3, 1));
             dialog.add(new JLabel("Please select the begin- and endpoint you want to remove"));
             Node[] nodes1 = g.getNodes().toArray(new Node[0]);
@@ -210,7 +223,8 @@ public class Controller {
                 if (box1.getSelectedItem() != box2.getSelectedItem()){
                     g.removeEdge((Node) box1.getSelectedItem(), (Node)box2.getSelectedItem());
                     dialog.dispose();
-                    v.printGraph(g);
+                    dr.update(g);
+                    v.addDrawing(dr);
                 }
             });
         });
@@ -218,7 +232,7 @@ public class Controller {
     public void BFSMenu(){
         v.getMenu().getBFS().addActionListener( e -> {
             JDialog dialog = new JDialog();
-            dialog.setSize(new Dimension(300, 200));
+            dialog.setSize(new Dimension(300, 150));
             dialog.setLayout(new GridLayout(2, 1));
             dialog.add(new JLabel("Please select the root point"));
             JPanel panel = new JPanel();
@@ -226,7 +240,7 @@ public class Controller {
             Node[] nodes = g.getNodes().toArray(new Node[0]);
             JComboBox<Node> box = new JComboBox<>(nodes);
             box.setPreferredSize(new Dimension(100,25));
-            JButton button = new JButton("Ok");
+            JButton button = new JButton("Run");
             panel.add(box); panel.add(button); dialog.add(panel);
             dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
@@ -235,13 +249,17 @@ public class Controller {
                 BFS b = new BFS();
                 Graph bfs = b.breadthFirstTraversal(g, (Node)box.getSelectedItem());
                 View bfs_view = new View();
-                bfs_view.printGraph(bfs);
+                bfs_view.setJMenuBar(null);
+                bfs_view.setSize(new Dimension(750,700));
+                Drawing bfs_graph = new Drawing();
+                bfs_graph.update(bfs);
+                bfs_view.addDrawing(bfs_graph);
                 bfs_view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             });
         });
     }
     public Graph createK4(){
-        Graph graph = new Graph("K4");
+        Graph graph = new Graph();
         Node A = new Node("A");
         Node B = new Node("B");
         Node C = new Node("C");
@@ -263,7 +281,8 @@ public class Controller {
     public void K4Menu(){
         v.getMenu().getK4().addActionListener(e -> {
             g = createK4();
-            v.printGraph(g);
+            dr.update(g);
+            v.addDrawing(dr);
         });
     }
     public void K5Menu(){
@@ -275,7 +294,8 @@ public class Controller {
             g.addEdge(g.getNodeByName("B"), E, 3);
             g.addEdge(g.getNodeByName("C"), E, 3);
             g.addEdge(g.getNodeByName("D"), E, 3);
-            v.printGraph(g);
+            dr.update(g);
+            v.addDrawing(dr);
         });
     }
     public void K6Menu(){
@@ -293,7 +313,55 @@ public class Controller {
             g.addEdge(g.getNodeByName("C"), F, 3);
             g.addEdge(g.getNodeByName("D"), F, 3);
             g.addEdge(E, F, 3);
-            v.printGraph(g);
+            dr.update(g);
+            v.addDrawing(dr);
+        });
+    }
+    public void DijkstraMenu(){
+        v.getMenu().getDijkstra().addActionListener(e -> {
+            JDialog dialog = new JDialog();
+            dialog.setSize(new Dimension(350,150));
+            dialog.setLayout(new GridLayout(3,1));
+            JPanel panel0 = new JPanel();
+            panel0.setLayout(new FlowLayout());
+            panel0.add(new JLabel("Select the source and destination point"));
+            dialog.add(panel0);
+
+            JPanel panel = new JPanel();
+            panel.setLayout(new FlowLayout());
+            panel.add(new JLabel("Source:"));
+            Node[] nodes = g.getNodes().toArray(new Node[0]);
+            JComboBox<Node> source_box = new JComboBox<>(nodes);
+            source_box.setPreferredSize(new Dimension(100, 25));
+            panel.add(source_box);
+            JComboBox<Node> dest_box = new JComboBox<>(nodes);
+            dest_box.setPreferredSize(new Dimension(100,25));
+            panel.add(new JLabel("Destination:"));
+            panel.add(dest_box);
+            dialog.add(panel);
+
+            JButton button = new JButton("Run");
+            JPanel panel2 = new JPanel();
+            panel2.setLayout(new FlowLayout());
+            panel2.add(button);
+            dialog.add(panel2);
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+
+            button.addActionListener(j -> {
+                if (source_box.getSelectedItem() != dest_box.getSelectedItem()){
+                    Dijkstra dijkstra = new Dijkstra((LinkedHashMap<Node, LinkedHashMap<Node, Integer>>)g.getMap().clone());
+                    View dij_view = new View();
+                    dij_view.setJMenuBar(null);
+                    dij_view.setSize(new Dimension(750,700));
+                    DrawDijkstra dd = new DrawDijkstra();
+                    dd.update(g);
+                    dd.getShortestPath(dijkstra.calculateShortestPath((Node)source_box.getSelectedItem(), (Node)dest_box.getSelectedItem()));
+                    dij_view.addDrawing(dd);
+                    dij_view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                }
+                dialog.dispose();
+            });
         });
     }
 }
