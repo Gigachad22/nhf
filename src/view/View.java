@@ -7,7 +7,9 @@ import java.awt.*;
 public class View extends JFrame {
     private MenuBar menu;
 
-    Drawing dr;
+    /**
+     * Létrehozza a Frame-et. Beállítja a Menüsort (Menubar).
+     */
     public View() {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("JGraph");
@@ -19,11 +21,20 @@ public class View extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Hozzáadja a paraméterként kapott rajzot (Drawing) a Frame-hez.
+     * @param dr
+     */
     public void addDrawing(Drawing dr){
         add(dr, BorderLayout.CENTER);
         dr.repaint();
         setVisible(true);
     }
+
+    /**
+     * Visszaadja a MenuBart.
+     * @return
+     */
     public MenuBar getMenu() {
         setVisible(true);
         return menu;

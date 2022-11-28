@@ -22,6 +22,12 @@ public class Controller {
     private View v;
     Drawing dr = new Drawing();
 
+    /**
+     * Controller osztály konstruktora. Elmenti tagváltozóba a paraméterként kapott gráfot és frame-et.
+     * A kapott gráfot kirajzoltatja és hozzáadja a kapott framehez. Init metódussal inicializálja a Listenereket.
+     * @param gr
+     * @param view
+     */
     public Controller(Graph gr, View view) {
         g = gr;
         v = view;
@@ -29,6 +35,10 @@ public class Controller {
         dr.update(g);
         v.addDrawing(dr);
     }
+
+    /**
+     * Inicializálja az összes ActionListenert.
+     */
     public void init() {
         addPointMenu();
         addEdgeMenu();
@@ -41,7 +51,13 @@ public class Controller {
         K5Menu();
         K6Menu();
         DijkstraMenu();
+        removeGraphMenu();
     }
+
+    /**
+     * Létrehozza az Edit -> New -> Point menü Listenerjét. Először egy Dialog panelt jelenít meg,
+     * ahol meg lehet adni az új csúcs nevét. A gomb bezárja a panelt és megjelenik az új pont.
+     */
     public void addPointMenu() {
         v.getMenu().getaddPoint().addActionListener(e -> {
             // create and setup a dialog Box
@@ -60,13 +76,20 @@ public class Controller {
             d.setVisible(true);
             // add the point to the graph and close
             b.addActionListener(j -> {
-                g.addPoint(new model.Node(txt.getText()));
-                d.dispose();
-                dr.update(g);
-                v.addDrawing(dr);
+                if (g.getNodeByName(txt.getText()) == null) {
+                    g.addPoint(new model.Node(txt.getText()));
+                    d.dispose();
+                    dr.update(g);
+                    v.addDrawing(dr);
+                }
             });
         });
     }
+
+    /**
+     * Létrehozza az Edit -> New -> Edge menü Listenerjét. Dialog panelben kell kiválasztani a tulajdonságokat,
+     * majd gombra kattintással az új élt tartalmazó gráf kirajzolódik az eredeti panelen.
+     */
     public void addEdgeMenu() {
         v.getMenu().getaddEdge().addActionListener(e -> {
             JDialog dialog = new JDialog();
@@ -110,12 +133,25 @@ public class Controller {
             });
         });
     }
+
+    /**
+     * A Graph tagváltozót elmenti fileba szerializációval. A kapott String paraméter lesz a fájl neve, ami .SER kiterjesztésű lesz.
+     * @param filename
+     * @throws IOException
+     */
     public void GraphToFile(String filename) throws IOException {
         FileOutputStream file_out = new FileOutputStream(filename + ".ser");
         ObjectOutputStream osw = new ObjectOutputStream(file_out);
         osw.writeObject(g);
         osw.close();
     }
+
+    /**
+     * Paraméterként kapott fájlt deszerializál és elmenti tagváltozóba (Graph típus).
+     * @param filename
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public void GraphFromFile(String filename) throws IOException, ClassNotFoundException {
         File f = new File(filename);
         FileInputStream fis = new FileInputStream(f);
@@ -123,6 +159,11 @@ public class Controller {
         g = (Graph) in.readObject();
         in.close();
     }
+
+    /**
+     * Létrehozza a File -> Save current graph menü Listenerjét. Egy új Dialog panelben megkérdezi a felhasználótól,
+     * hogy mi legyen a file neve.
+     */
     public void saveMenu() {
         v.getMenu().getSavegraph().addActionListener(e -> {
             JDialog d = new JDialog();
@@ -156,6 +197,12 @@ public class Controller {
 
         });
     }
+
+    /**
+     * Létrehozza a File -> Load Graph -> More.. menü Listenerjét. Egy fájl választó ablakban kell kiválasztani egy
+     * .SER kiterjesztésű fájlt. Ezt elmenti a tagváltozóba és átadja megjelenítésre a View-nak.
+     *
+     */
     public void loadMoreMenu() {
         v.getMenu().getMore().addActionListener(e -> {
             File workingDirectory = new File(System.getProperty("user.dir"));
@@ -175,6 +222,11 @@ public class Controller {
             }
         });
     }
+
+    /**
+     * Létrehozza az Edit -> Remove -> Point menü Listenerjét. Egy legördíthető dobozbol a felhasználó kiválasztja a
+     * törölni kívánt csúcsot. Az új gráfot elmenti a tagváltozóban és átadja a View-nak megjelenítésre.
+     */
     public void removePointMenu(){
         v.getMenu().getremovePoint().addActionListener(e -> {
             JDialog dialog = new JDialog();
@@ -198,6 +250,11 @@ public class Controller {
             });
         });
     }
+
+    /**
+     * Létrehozza az Edit -> Remove -> Edge menü Listenerjét. Két legördíthető dobozból a felhasználó kiválasztja a
+     * törölni kívánt csúcsokat. Az új gráfot elmenti tagváltozóba és átadja megjelenítésre a View-nak.
+     */
     public void removeEdgeMenu(){
         v.getMenu().getremoveEdge().addActionListener(e -> {
             JDialog dialog = new JDialog();
@@ -229,6 +286,11 @@ public class Controller {
             });
         });
     }
+
+    /**
+     * Létrehozza a Run -> BFS menü Listenerjét. A felhasználó kiválasztja egy legördíthető dobozból a gyökér csúcsot.
+     * Ezután egy új frame-ben megjelenik a BFS gráf.
+     */
     public void BFSMenu(){
         v.getMenu().getBFS().addActionListener( e -> {
             JDialog dialog = new JDialog();
@@ -258,7 +320,12 @@ public class Controller {
             });
         });
     }
-    public Graph createK4(){
+
+    /**
+     * Új gráfot létrehoz 4 csúccsal és 6 éllel, majd visszaadja ezt a gráfot.
+     * @return
+     */
+    public static Graph createK4(){
         Graph graph = new Graph();
         Node A = new Node("A");
         Node B = new Node("B");
@@ -278,6 +345,11 @@ public class Controller {
         graph.addEdge(C, D, 3);
         return graph;
     }
+
+    /**
+     * Létrehozza a File -> Load Graph -> K4 menü Listenerjét. Meghívja a createK4 metódust, elmenti tagváltozóba és átadja
+     * megjelenítésre a View-nak.
+     */
     public void K4Menu(){
         v.getMenu().getK4().addActionListener(e -> {
             g = createK4();
@@ -285,6 +357,11 @@ public class Controller {
             v.addDrawing(dr);
         });
     }
+
+    /**
+     * Létrehozza a File -> Load Graph -> K5 menü Listenerjét. Meghívja a createK4 metódust, elmenti tagváltozóba,
+     * hozzáad még 1 csúcsot és 4 élet, majd átadja a View-nak megjelenítésre.
+     */
     public void K5Menu(){
         v.getMenu().getK5().addActionListener(e -> {
             g = createK4();
@@ -298,6 +375,11 @@ public class Controller {
             v.addDrawing(dr);
         });
     }
+
+    /**
+     * Létrehozza a File -> Load Graph -> K6 menü Listenerjét. Meghívja a createK4 metódust, elmenti tagváltozóba,
+     * hozzáad 2 csúcsot és 9 élet, majd átadja a View-nak megjelenítésre.
+     */
     public void K6Menu(){
         v.getMenu().getK6().addActionListener(e -> {
             g = createK4();
@@ -317,6 +399,11 @@ public class Controller {
             v.addDrawing(dr);
         });
     }
+
+    /**
+     * Létrehozza a Run -> Dijkstra menü Listenerjét. Egy új Dialog panelben ki kell választani a kezdő illetve végpontot.
+     * Ezután létrehozza a Dijkstra útvonalat tartalmazú új gráfot, létrehoz egy új View-t és ennek átadja a létrehozott gráfot megjelenítésre.
+     */
     public void DijkstraMenu(){
         v.getMenu().getDijkstra().addActionListener(e -> {
             JDialog dialog = new JDialog();
@@ -362,6 +449,18 @@ public class Controller {
                 }
                 dialog.dispose();
             });
+        });
+    }
+
+    /**
+     * Létrehozza az Edit -> Remove -> Graph menü Listenerjét. Új Graph-ot hoz létre, ezt az üres gráfot adja át
+     * a Drawing-nak, ami ezt rajzolja ki. Az üres rajzot hozzáadja a framehez (View).
+     */
+    public void removeGraphMenu(){
+        v.getMenu().getrGraph().addActionListener( e -> {
+            g = new Graph();
+            dr.update(g);
+            v.addDrawing(dr);
         });
     }
 }

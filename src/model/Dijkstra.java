@@ -3,10 +3,21 @@ package model;
 import java.util.*;
 
 public class Dijkstra extends Graph{
-
+    /**
+     * Beállítja a paraméterként kapott adatszerkezetet tagváltozóba.
+     * @param map
+     */
     public Dijkstra(LinkedHashMap<Node, LinkedHashMap<Node, Integer>> map){
         setMap(map);
     }
+
+    /**
+     * Dijkstra algoritmus. A paraméterként kapott két csúcs között visszaadja egy láncolt listában a visszafelé vezető,
+     * legrövidebb utat.
+     * @param source
+     * @param dest
+     * @return
+     */
     public LinkedList<Node> calculateShortestPath(Node source, Node dest){
         class Prev {
             Node node;
@@ -40,7 +51,7 @@ public class Dijkstra extends Graph{
                 }
             }
             visited.add(active);
-            // kövi active
+            // következő active
             Integer min = Integer.MAX_VALUE;
             for (Node m : table.keySet()){
                 if (!visited.contains(m) && table.get(m).distance < min){

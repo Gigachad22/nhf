@@ -2,8 +2,13 @@ package model;
 import java.util.*;
 
 public class BFS {
-
-    // source: https://www.baeldung.com/java-graphs
+    /**
+     * Visszaadja az paraméterként kapott gráf, szintén paraméterként kapott csúcsbol indított BFS-fáját.
+     * source: https://www.baeldung.com/java-graphs
+     * @param graph
+     * @param root
+     * @return
+     */
     public Graph breadthFirstTraversal(Graph graph, Node root) {
         Graph BFS = new Graph();
         Queue<Node> queue = new LinkedList<Node>();

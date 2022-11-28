@@ -4,14 +4,15 @@ import javax.swing.*;
 
 
 public class MenuBar extends JMenuBar {
-    private JMenuItem aPoint, aEdge, rPoint, rEdge;
-    private JMenuItem k4, k5, k6, savegraph, more;
-    private JMenuItem BFS, Dijkstra;
+    private final JMenuItem aPoint, aEdge, rPoint, rEdge, rGraph;
+    private final JMenuItem k4, k5, k6, savegraph, more;
+    private final JMenuItem BFS, Dijkstra;
 
     public MenuBar(){
 
 // Creating all the objects
         rEdge = new JMenuItem("Edge"); rPoint = new JMenuItem("Point");
+        rGraph = new JMenuItem("Graph");
         aEdge = new JMenuItem("Edge"); aPoint = new JMenuItem("Point");
         more = new JMenuItem("More...");
         k4 = new JMenuItem("K4"); k5 = new JMenuItem("K5"); k6 = new JMenuItem("K6");
@@ -42,6 +43,7 @@ public class MenuBar extends JMenuBar {
         submenu_new.add(aEdge);
         submenu_remove.add(rPoint);
         submenu_remove.add(rEdge);
+        submenu_remove.add(rGraph);
         edit.add(submenu_new);
         edit.add(submenu_remove);
         add(edit);
@@ -80,4 +82,7 @@ public class MenuBar extends JMenuBar {
         return more;
     }
     public JMenuItem getSavegraph() {return savegraph;}
+    public JMenuItem getrGraph(){
+        return rGraph;
+    }
 }
