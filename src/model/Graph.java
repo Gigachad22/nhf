@@ -52,8 +52,6 @@ public class Graph implements Serializable {
      * @param weight
      */
     public void addEdge(Node b, Node e, int weight) {
-        if (!map.containsKey(b) || !map.containsKey(e))
-            System.out.println("baj volt");
         map.get(b).put(e, weight);
         map.get(e).put(b, weight);
     }
