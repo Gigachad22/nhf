@@ -7,7 +7,7 @@ import view.View;
 public class Main {
     /**
      * A program futtatása
-     * @param args
+     * @param args parancssori argumentum, a program nem használja.
      */
     public static void main(String[] args) {
         Graph gr = new Graph();

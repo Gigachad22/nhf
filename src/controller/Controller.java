@@ -25,8 +25,8 @@ public class Controller {
     /**
      * Controller osztály konstruktora. Elmenti tagváltozóba a paraméterként kapott gráfot és frame-et.
      * A kapott gráfot kirajzoltatja és hozzáadja a kapott framehez. Init metódussal inicializálja a Listenereket.
-     * @param gr
-     * @param view
+     * @param gr Graph
+     * @param view View (a frame amibe küldi a megjeleníteni kívánt dolgokat)
      */
     public Controller(Graph gr, View view) {
         g = gr;
@@ -136,7 +136,7 @@ public class Controller {
 
     /**
      * A Graph tagváltozót elmenti fileba szerializációval. A kapott String paraméter lesz a fájl neve, ami .SER kiterjesztésű lesz.
-     * @param filename
+     * @param filename String, az elmentett fájl neve
      * @throws IOException
      */
     public void GraphToFile(String filename) throws IOException {
@@ -148,7 +148,7 @@ public class Controller {
 
     /**
      * Paraméterként kapott fájlt deszerializál és elmenti tagváltozóba (Graph típus).
-     * @param filename
+     * @param filename String a beolvasandó fájl neve
      * @throws IOException
      * @throws ClassNotFoundException
      */
@@ -323,7 +323,7 @@ public class Controller {
 
     /**
      * Új gráfot létrehoz 4 csúccsal és 6 éllel, majd visszaadja ezt a gráfot.
-     * @return
+     * @return az inicializált Graph objektum.
      */
     public static Graph createK4(){
         Graph graph = new Graph();

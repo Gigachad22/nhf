@@ -5,9 +5,9 @@ public class BFS {
     /**
      * Visszaadja az paraméterként kapott gráf, szintén paraméterként kapott csúcsbol indított BFS-fáját.
      * source: https://www.baeldung.com/java-graphs
-     * @param graph
-     * @param root
-     * @return
+     * @param graph A Graph amin futtatva lesz az algoritmus.
+     * @param root Node, az algoritmus gyökérpontja.
+     * @return  Graph, a paraméterként kapott Graph feszítőfája.
      */
     public Graph breadthFirstTraversal(Graph graph, Node root) {
         Graph BFS = new Graph();

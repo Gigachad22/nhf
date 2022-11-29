@@ -9,7 +9,7 @@ public class Graph implements Serializable {
 
     /**
      * Paraméterként kapott adatszerkezetet elmenti tagváltozóba. Csak leszármazott osztályokban lehet meghívni.
-     * @param map
+     * @param map LinkedHashMap adatszerkezet
      */
    protected void setMap(LinkedHashMap<Node, LinkedHashMap<Node, Integer>> map){
        this.map = map;
@@ -17,7 +17,7 @@ public class Graph implements Serializable {
 
     /**
      * Visszaadja a tagváltozóba elmentett adatszerkezet.
-     * @return
+     * @return LinkedHashMap adatszerkezet
      */
    public LinkedHashMap<Node, LinkedHashMap<Node, Integer>> getMap(){
        return map;
@@ -25,7 +25,7 @@ public class Graph implements Serializable {
 
     /**
      * Visszaadja a gráf csúcsait tartalmazó Set-et.
-     * @return
+     * @return Set, a Graph összes csúcsát(Node) tartalmazó halmaz
      */
     public Set<Node> getNodes(){
         return map.keySet();
@@ -33,13 +33,13 @@ public class Graph implements Serializable {
 
     /**
      * Visszaadja a gráf csúcsainak számát.
-     * @return
+     * @return integer, Graph-ban tárolt Node-ok száma
      */
     public int sizeofPoints(){return map.keySet().size();}
 
     /**
      * Hozzáadja a gráfhoz a paraméterként kapott csúcsot.
-     * @param p
+     * @param p Node, a hozzáadni kívánt csúcs
      */
     public void addPoint(Node p) {
         map.put(p, new LinkedHashMap<>());
@@ -47,9 +47,9 @@ public class Graph implements Serializable {
 
     /**
      * Hozzáadja a gráfhoz a paraméterként kapott csúcsok közötti, szintén paraméterként kapott súlyú gráfot.
-     * @param b
-     * @param e
-     * @param weight
+     * @param b Node, az él egyik pontja
+     * @param e Node, az él másik pontja
+     * @param weight integer, az él súlya
      */
     public void addEdge(Node b, Node e, int weight) {
         map.get(b).put(e, weight);
@@ -58,9 +58,9 @@ public class Graph implements Serializable {
 
     /**
      * Visszaadja a paraméterként kapott két csúcs közötti él súlyát.
-     * @param a
-     * @param b
-     * @return
+     * @param a Node, az él egyik pontja
+     * @param b Node, az él másik pontja
+     * @return integer, az él súlya
      */
     public int getWeight(Node a, Node b){
         return map.get(a).get(b);
@@ -68,7 +68,7 @@ public class Graph implements Serializable {
 
     /**
      * Törli a gráfból a paraméterként kapott csúcsot és az összes hozzá kapcsolódó élet.
-     * @param a
+     * @param a Node, a törölni kívánt csúcs
      */
     public void removePoint(Node a){
         map.remove(a);
@@ -79,8 +79,8 @@ public class Graph implements Serializable {
 
     /**
      * Törli a gráfból a paraméterként kapott csúcsok közötti élet.
-     * @param a
-     * @param b
+     * @param a Node, a törölni kívánt él egyik csúcsa
+     * @param b Node, a törölni kívánt él másik csúcsa
      */
     public void removeEdge(Node a, Node b){
         map.get(a).remove(b);
@@ -89,8 +89,8 @@ public class Graph implements Serializable {
 
     /**
      * Visszaadja a paraméterként kapott csúcs szomszédos csúcsainak halmazát.
-     * @param a
-     * @return
+     * @param a Node, aminek keressük a szomszédjait
+     * @return Set, a paraméterként kapott Node szomszédjainak halmaza
      */
     public Set<Node> getNeighbours(Node a){
         return map.get(a).keySet();
@@ -98,8 +98,8 @@ public class Graph implements Serializable {
 
     /**
      * Visszaadja a gráfból azt a csúcsot amelynek a neve megegyezik a paraméterként kapott Stringgel.
-     * @param str
-     * @return
+     * @param str String, a kért csúcs neve
+     * @return A kért Node
      */
     public Node getNodeByName(String str){
         Node r = null;
@@ -113,9 +113,9 @@ public class Graph implements Serializable {
 
     /**
      * Visszaadja, hogy a paraméterként kapott csúcsok között van-e él.
-     * @param n
-     * @param m
-     * @return
+     * @param n Node, az él egyik csúcsa
+     * @param m Node, az él másik csúcsa
+     * @return boolean, van-e köztük él
      */
     public boolean isNeighbours(Node n, Node m){
        return getNeighbours(n).contains(m);

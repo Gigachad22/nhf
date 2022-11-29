@@ -10,7 +10,7 @@ public class DrawDijkstra extends Drawing{
 
     /**
      * Elmenti a paraméterként kapott láncolt listát tagváltozóba.
-     * @param list
+     * @param list LinkedList, a gráfban található útvonal
      */
     public void getShortestPath(LinkedList<Node> list){
         shortest_path = list;
@@ -36,7 +36,7 @@ public class DrawDijkstra extends Drawing{
 
     /**
      * Meghívja a Drawing osztály paintComponent metódusát.
-     * @param g
+     * @param g Graphics objektum
      */
     public void drawGraph(Graphics g){
         super.paintComponent(g);

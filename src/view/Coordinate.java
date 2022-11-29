@@ -5,8 +5,8 @@ public class Coordinate {
 
     /**
      * Elmenti tagváltozókba a kapott értékeket.
-     * @param x
-     * @param y
+     * @param x integer, X koordináta
+     * @param y integer, Y koordináta
      */
     public Coordinate(int x, int y){
         X = x;

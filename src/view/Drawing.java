@@ -38,9 +38,9 @@ public class Drawing extends JPanel {
 
     /**
      * Paraméterként kapott két csúcs koordinátáit megkeresi majd vonalat húz közé
-     * @param n
-     * @param m
-     * @param g2d
+     * @param n Az egyik Node
+     * @param m A másik Node
+     * @param g2d Graphics objektum
      */
     public void drawLine(Node n, Node m, Graphics2D g2d){
         g2d.drawLine(points.get(m).X + 5, points.get(m).Y + 5, points.get(n).X + 5, points.get(n).Y + 5);
@@ -50,7 +50,7 @@ public class Drawing extends JPanel {
     /**
      * Megnézi, hány csúcs van a kapott gráfban, majd kiszámolja az ezekhez tartozó koordinátákat és elmenti tagváltozóba.
      * Elmenti a kapott gráfot.
-     * @param g
+     * @param g Graph, a megjeleníteni kívánt gráf
      */
     public void update(Graph g){
         graph = g;
@@ -64,8 +64,8 @@ public class Drawing extends JPanel {
 
     /**
      * Kiszámolja és visszaadja a paraméterként kapott szöghöz tartozó X koordinátát.
-     * @param angle
-     * @return
+     * @param angle double, X tengellyel bezárt szög
+     * @return Integer, az elforgatott pont X koordinátája
      */
     public Integer parametricX(double angle){
         Double d = 400 + (300 * Math.cos(angle));
@@ -74,8 +74,8 @@ public class Drawing extends JPanel {
 
     /**
      * Kiszámolja és visszaadja a paraméterként kapott szöghöz tartozó Y koordinátát.
-     * @param angle
-     * @return
+     * @param angle double, X tengellyel bezárt szög
+     * @return Integer, az elforgatott pont Y koordinátája
      */
     public Integer parametricY(double angle){
         Double d = 350 + (300 * Math.sin(angle));

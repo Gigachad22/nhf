@@ -6,7 +6,7 @@ public class Node implements Serializable, Comparable<Node> {
 
     /**
      * Elmenti tagváltozóba a paraméterként kapott Stringet.
-     * @param n
+     * @param n String, a csúcs neve
      */
     public Node(String n){
         name = n;
@@ -14,7 +14,7 @@ public class Node implements Serializable, Comparable<Node> {
 
     /**
      * Visszaadja a tagváltozó értékét.
-     * @return
+     * @return String, a csúcs neve
      */
     public String toString(){
         return name;
@@ -23,7 +23,7 @@ public class Node implements Serializable, Comparable<Node> {
     /**
      * Két Node-ot komparál név alapján. Ha egyezik a név 1-et ad vissza, ha különbözik akkor -1-et.
      * @param o the object to be compared.
-     * @return
+     * @return boolean
      */
     @Override
     public int compareTo(Node o) {

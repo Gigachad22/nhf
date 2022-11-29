@@ -5,7 +5,7 @@ import java.util.*;
 public class Dijkstra extends Graph{
     /**
      * Beállítja a paraméterként kapott adatszerkezetet tagváltozóba.
-     * @param map
+     * @param map LinkedHashMap, Graph adatszerkezet
      */
     public Dijkstra(LinkedHashMap<Node, LinkedHashMap<Node, Integer>> map){
         setMap(map);
@@ -14,9 +14,9 @@ public class Dijkstra extends Graph{
     /**
      * Dijkstra algoritmus. A paraméterként kapott két csúcs között visszaadja egy láncolt listában a visszafelé vezető,
      * legrövidebb utat.
-     * @param source
-     * @param dest
-     * @return
+     * @param source Node, az út kezdőpontja
+     * @param dest  Node, az út végpontja
+     * @return LinkedList, a legrövidebb út láncolt listája
      */
     public LinkedList<Node> calculateShortestPath(Node source, Node dest){
         class Prev {

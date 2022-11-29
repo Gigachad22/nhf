@@ -8,6 +8,9 @@ public class MenuBar extends JMenuBar {
     private final JMenuItem k4, k5, k6, savegraph, more;
     private final JMenuItem BFS, Dijkstra;
 
+    /**
+     * Konstruktor. Tagváltozók létrehozása.
+     */
     public MenuBar(){
 
 // Creating all the objects
@@ -20,6 +23,10 @@ public class MenuBar extends JMenuBar {
         BFS = new JMenuItem("BFS"); Dijkstra = new JMenuItem("Dijkstra");
         fileMenu(); editMenu(); runMenu();
     }
+
+    /**
+     * File menü létrehozása.
+     */
     public void fileMenu() {
 
 // Creating "File" menu components
@@ -33,6 +40,10 @@ public class MenuBar extends JMenuBar {
         file.add(savegraph);
         add(file);
     }
+
+    /**
+     * Edit menü létrehozása.
+     */
     public void editMenu(){
 
 // Creating "Edit" menu components
@@ -48,6 +59,10 @@ public class MenuBar extends JMenuBar {
         edit.add(submenu_remove);
         add(edit);
     }
+
+    /**
+     * Run menü létrehozása.
+     */
     public void runMenu(){
         JMenu run = new JMenu("Run");
         run.add(BFS);
@@ -55,33 +70,81 @@ public class MenuBar extends JMenuBar {
         add(run);
     }
 
+    /**
+     * Tagváltozó visszaadása.
+     * @return JMenuItem
+     */
     public JMenuItem getaddPoint() {
         return aPoint;
     }
+    /**
+     * Tagváltozó visszaadása.
+     * @return JMenuItem
+     */
     public JMenuItem getaddEdge() {
         return aEdge;
     }
+    /**
+     * Tagváltozó visszaadása.
+     * @return JMenuItem
+     */
     public JMenuItem getremovePoint() {
         return rPoint;
     }
+    /**
+     * Tagváltozó visszaadása.
+     * @return JMenuItem
+     */
     public JMenuItem getremoveEdge() {
         return rEdge;
     }
+    /**
+     * Tagváltozó visszaadása.
+     * @return JMenuItem
+     */
     public JMenuItem getK4() {
         return k4;
     }
+    /**
+     * Tagváltozó visszaadása.
+     * @return JMenuItem
+     */
     public JMenuItem getK5() {
         return k5;
     }
+    /**
+     * Tagváltozó visszaadása.
+     * @return JMenuItem
+     */
     public JMenuItem getK6() {
         return k6;
     }
+    /**
+     * Tagváltozó visszaadása.
+     * @return JMenuItem
+     */
     public JMenuItem getBFS(){return BFS;}
+    /**
+     * Tagváltozó visszaadása.
+     * @return JMenuItem
+     */
     public JMenuItem getDijkstra(){return Dijkstra;}
+    /**
+     * Tagváltozó visszaadása.
+     * @return JMenuItem
+     */
     public JMenuItem getMore() {
         return more;
     }
+    /**
+     * Tagváltozó visszaadása.
+     * @return JMenuItem
+     */
     public JMenuItem getSavegraph() {return savegraph;}
+    /**
+     * Tagváltozó visszaadása.
+     * @return JMenuItem
+     */
     public JMenuItem getrGraph(){
         return rGraph;
     }

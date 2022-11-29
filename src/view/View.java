@@ -23,7 +23,7 @@ public class View extends JFrame {
 
     /**
      * Hozzáadja a paraméterként kapott rajzot (Drawing) a Frame-hez.
-     * @param dr
+     * @param dr Drawing, a rajzolt objektum
      */
     public void addDrawing(Drawing dr){
         add(dr, BorderLayout.CENTER);
@@ -33,7 +33,7 @@ public class View extends JFrame {
 
     /**
      * Visszaadja a MenuBart.
-     * @return
+     * @return Menubar, a menüsor
      */
     public MenuBar getMenu() {
         setVisible(true);
