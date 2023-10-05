@@ -1,7 +1,6 @@
-# JGraphs - félév végi nagy házi java nyelvből
+# JGraphs - End-of-Semester project for my first Java course
 
-Az alkalmazás súlyozott, irányítatlan gráfokat tud kezelni.
-A gráfokon az alapvető műveletek (csúcs/él beszúrása) mellett BFS- és Dijkstra-algoritmusokat lehet futtatni, melyeknek az eredménye egy új ablakban jelenik meg.
-A gráf objektumokat sorosítva fájlba is lehet menteni, majd később visszaolvasni.
+This application can handle weighted, undirected graphs. It allows basic operations on graphs such as inserting vertices and edges.
+Additionally, it can run BFS and Dijkstra algorithms, and their results are displayed in a new window. Graph objects can also be serialized to a file and later deserialized.
 
-A megjelenítést a Swing framework segítségével írtam az MVC modell szerint.
+The graphical user interface is implemented using the Swing framework following the MVC model.
